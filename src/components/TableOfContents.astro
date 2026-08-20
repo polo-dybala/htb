@@ -1,0 +1,78 @@
+---
+// Pass the `headings` array returned by a rendered content entry:
+// const { Content, headings } = await entry.render();
+// <TableOfContents headings={headings} />
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+// Only show h2/h3 to keep the TOC readable
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{items.length > 0 && (
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc__title">Sommaire</p>
+    <ul class="toc__list">
+      {items.map((heading) => (
+        <li class:list={['toc__item', { 'toc__item--sub': heading.depth === 3 }]}>
+          <a href={`#${heading.slug}`}>{heading.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .toc {
+    position: sticky;
+    top: 6rem;
+    background: var(--color-surface, #16161f);
+    border: 1px solid var(--color-border, #2a2a3a);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  .toc__title {
+    margin: 0 0 0.6rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted, #9ca3af);
+  }
+
+  .toc__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc__item a {
+    color: var(--color-text-secondary, #c7c7d1);
+    text-decoration: none;
+    display: block;
+    border-left: 2px solid transparent;
+    padding-left: 0.6rem;
+  }
+
+  .toc__item a:hover {
+    color: var(--color-accent, #4ade80);
+    border-left-color: var(--color-accent, #4ade80);
+  }
+
+  .toc__item--sub {
+    padding-left: 0.9rem;
+    font-size: 0.8rem;
+  }
+</style>

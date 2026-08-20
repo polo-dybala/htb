@@ -1,0 +1,92 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/global.css';
+
+// Add entries here as you write new cheatsheets, or convert this into
+// a content collection (like `writeups`) if the list grows large.
+const cheatsheets = [
+  { title: 'Reverse shells', description: 'Payloads courants par langage/outil.', href: '#' },
+  { title: 'Privesc Linux', description: 'Checklist rapide GTFOBins, SUID, cron...', href: '#' },
+  { title: 'Privesc Windows', description: 'Checklist WinPEAS, services, tokens...', href: '#' },
+];
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cheatsheets · htb-writeups</title>
+  </head>
+  <body>
+    <Header />
+    <main class="page">
+      <div class="header">
+        <h1>Cheatsheets</h1>
+        <p>Aide-mémoire rapides utilisés pendant les CTF.</p>
+      </div>
+      <div class="grid">
+        {cheatsheets.map((sheet) => (
+          <a class="card" href={sheet.href}>
+            <h3>{sheet.title}</h3>
+            <p>{sheet.description}</p>
+          </a>
+        ))}
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .header p {
+    color: var(--color-text-muted, #9ca3af);
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--color-surface, #16161f);
+    border: 1px solid var(--color-border, #2a2a3a);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease;
+  }
+
+  .card:hover {
+    border-color: var(--color-accent, #4ade80);
+  }
+
+  .card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #9ca3af);
+  }
+</style>

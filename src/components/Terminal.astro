@@ -1,0 +1,94 @@
+---
+interface Props {
+  title?: string;
+  prompt?: string;
+}
+
+const { title = 'terminal', prompt = '$' } = Astro.props;
+---
+
+<div class="terminal">
+  <div class="terminal__bar">
+    <div class="terminal__dots">
+      <span></span><span></span><span></span>
+    </div>
+    <span class="terminal__title">{title}</span>
+  </div>
+  <div class="terminal__body">
+    <span class="terminal__prompt-wrapper">
+      <span class="terminal__prompt">{prompt}</span>
+      <div class="terminal__content">
+        <slot />
+      </div>
+    </span>
+  </div>
+</div>
+
+<style>
+  .terminal {
+    background: #0d0d14;
+    border: 1px solid var(--color-border, #2a2a3a);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.875rem;
+  }
+
+  .terminal__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: #14141f;
+    border-bottom: 1px solid var(--color-border, #2a2a3a);
+  }
+
+  .terminal__dots {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .terminal__dots span {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: #3a3a4a;
+  }
+  .terminal__dots span:nth-child(1) { background: #f87171; }
+  .terminal__dots span:nth-child(2) { background: #facc15; }
+  .terminal__dots span:nth-child(3) { background: #4ade80; }
+
+  .terminal__title {
+    color: var(--color-text-muted, #9ca3af);
+    font-size: 0.75rem;
+  }
+
+  .terminal__body {
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+  }
+
+  .terminal__prompt-wrapper {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .terminal__prompt {
+    color: #4ade80;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  .terminal__content {
+    color: #e5e7eb;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .terminal__content :global(code) {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+</style>

@@ -1,0 +1,167 @@
+---
+import Badge from '../components/Badge.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  machine: string;
+  os: 'linux' | 'windows' | 'other';
+  difficulty: 'easy' | 'medium' | 'hard' | 'insane';
+  points?: number;
+  ip?: string;
+  releaseDate: Date;
+  tags: string[];
+  description: string;
+  image?: string;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const {
+  title,
+  machine,
+  os,
+  difficulty,
+  points,
+  ip,
+  releaseDate,
+  tags,
+  description,
+  image,
+  headings,
+} = Astro.props;
+
+const formattedDate = new Date(releaseDate).toLocaleDateString('fr-FR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} · htb-writeups</title>
+  </head>
+  <body>
+    <Header />
+    <div class="page">
+      <header class="hero" style={image ? `background-image: linear-gradient(180deg, rgba(10,10,15,0.4), var(--color-bg, #0a0a0f)), url(${image})` : undefined}>
+        <div class="hero__inner">
+          <div class="hero__badges">
+            <Badge label={os} variant={os} />
+            <Badge label={difficulty} variant={difficulty} />
+            {points && <Badge label={`${points} pts`} />}
+          </div>
+          <h1 class="hero__title">{title}</h1>
+          <p class="hero__machine">{machine}</p>
+          <div class="hero__meta">
+            <span>{formattedDate}</span>
+            {ip && <span class="hero__ip">{ip}</span>}
+          </div>
+          <div class="hero__tags">
+            {tags.map((tag) => <span class="hero__tag">{tag}</span>)}
+          </div>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="layout__sidebar">
+          <TableOfContents headings={headings} />
+        </aside>
+        <main class="layout__content prose">
+          <slot />
+        </main>
+      </div>
+    </div>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .hero {
+    background-size: cover;
+    background-position: center;
+    padding: 3.5rem 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--color-border, #2a2a3a);
+  }
+
+  .hero__inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero__badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero__title {
+    font-size: 2.25rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .hero__machine {
+    color: var(--color-text-muted, #9ca3af);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+  }
+
+  .hero__meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary, #c7c7d1);
+    margin-bottom: 0.9rem;
+  }
+
+  .hero__ip {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .hero__tag {
+    background: var(--color-surface-alt, #1e1e2a);
+    border: 1px solid var(--color-border, #2a2a3a);
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: var(--color-text-muted, #9ca3af);
+  }
+
+  .layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .layout__sidebar {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .layout__sidebar {
+      display: block;
+    }
+  }
+
+  .layout__content {
+    min-width: 0;
+  }
+</style>
