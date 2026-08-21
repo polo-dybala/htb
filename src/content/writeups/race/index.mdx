@@ -43,41 +43,28 @@ web server through the browser redirects us to /racers/.
 Nothing of interesting was found. I proceed with a little directory enumeration.
 <Terminal prompt="$">
  gobuster dir -u http://10.129.234.209/racers -w Wordlist/diretory.txt
-===============================================================
-Gobuster v3.5
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
-===============================================================
-[+] Url:                     http://10.129.234.209/racers
-[+] Method:                  GET
-[+] Threads:                 10
-[+] Wordlist:                Wordlist/diretory.txt
-[+] Negative Status codes:   404
-[+] User Agent:              gobuster/3.5
-[+] Timeout:                 10s
-===============================================================
-2026/08/21 15:58:48 Starting gobuster in directory enumeration mode
-===============================================================
-/assets               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/assets/]
-/images               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/images/]
+
+/assets               (Status: 301) [Size: 324]
+/images               (Status: 301) [Size: 324] 
 /robots.txt           (Status: 200) [Size: 379]
-/vendor               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/vendor/]
+/vendor               (Status: 301) [Size: 324]
 /.htaccess            (Status: 403) [Size: 279]
 /composer.json        (Status: 403) [Size: 279]
-/system               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/system/]
+/system               (Status: 301) [Size: 324]
 /admin                (Status: 200) [Size: 11357]
-/cache                (Status: 301) [Size: 323] [--> http://10.129.234.209/racers/cache/]
+/cache                (Status: 301) [Size: 323]
 /README.md            (Status: 403) [Size: 279]
 /composer.lock        (Status: 403) [Size: 279]
-/tmp                  (Status: 301) [Size: 321] [--> http://10.129.234.209/racers/tmp/]
-/bin                  (Status: 301) [Size: 321] [--> http://10.129.234.209/racers/bin/]
-/logs                 (Status: 301) [Size: 322] [--> http://10.129.234.209/racers/logs/]
+/tmp                  (Status: 301) [Size: 321]
+/bin                  (Status: 301) [Size: 321] 
+/logs                 (Status: 301) [Size: 322] 
 /home                 (Status: 200) [Size: 11411]
-/backup               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/backup/]
+/backup               (Status: 301) [Size: 324] 
 /LICENSE.txt          (Status: 403) [Size: 279]
 /CONTRIBUTING.md      (Status: 403) [Size: 279]
 /login                (Status: 200) [Size: 10406]
 /CHANGELOG.md         (Status: 403) [Size: 279]
-/user                 (Status: 301) [Size: 322] [--> http://10.129.234.209/racers/user/]
+/user                 (Status: 301) [Size: 322] 
 /.github              (Status: 403) [Size: 279]
 /.htpasswd            (Status: 403) [Size: 279]
 /.htpasswds           (Status: 403) [Size: 279]
