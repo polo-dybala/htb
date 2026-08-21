@@ -5,7 +5,7 @@ export default defineConfig({
   // - If your repo is named "tonuser.github.io", remove the `base` line entirely.
   // - Otherwise, base must match your repo name exactly, with a leading slash.
   site: 'https://polo-dybala.github.io',
-  base: '/writeups',
+  base: '/htb',
 
   markdown: {
     shikiConfig: {
