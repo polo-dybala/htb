@@ -19,9 +19,7 @@ import '../../../styles/global.css';
 
 We start with a normal nmap
 
-<Terminal title="nmap" prompt="$">
-nmap -sC -sV -T4 10.129.234.209
-
+<Terminal title="nmap" prompt="$ nmap -sC -sV -T4 10.129.234.209">
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
@@ -41,6 +39,47 @@ web server through the browser redirects us to /racers/.
     alt="GRAV CMS login page"
   />
 </div>
+Nothing of interesting was found. I proceed with a little directory enumeration.
+<Terminal prompt="$ gobuster dir -u http://10.129.234.209/racers -w Wordlist/diretory.txt">
+===============================================================
+Gobuster v3.5
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.129.234.209/racers
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                Wordlist/diretory.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.5
+[+] Timeout:                 10s
+===============================================================
+2026/08/21 15:58:48 Starting gobuster in directory enumeration mode
+===============================================================
+/assets               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/assets/]
+/images               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/images/]
+/robots.txt           (Status: 200) [Size: 379]
+/vendor               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/vendor/]
+/.htaccess            (Status: 403) [Size: 279]
+/composer.json        (Status: 403) [Size: 279]
+/system               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/system/]
+/admin                (Status: 200) [Size: 11357]
+/cache                (Status: 301) [Size: 323] [--> http://10.129.234.209/racers/cache/]
+/README.md            (Status: 403) [Size: 279]
+/composer.lock        (Status: 403) [Size: 279]
+/tmp                  (Status: 301) [Size: 321] [--> http://10.129.234.209/racers/tmp/]
+/bin                  (Status: 301) [Size: 321] [--> http://10.129.234.209/racers/bin/]
+/logs                 (Status: 301) [Size: 322] [--> http://10.129.234.209/racers/logs/]
+/home                 (Status: 200) [Size: 11411]
+/backup               (Status: 301) [Size: 324] [--> http://10.129.234.209/racers/backup/]
+/LICENSE.txt          (Status: 403) [Size: 279]
+/CONTRIBUTING.md      (Status: 403) [Size: 279]
+/login                (Status: 200) [Size: 10406]
+/CHANGELOG.md         (Status: 403) [Size: 279]
+/user                 (Status: 301) [Size: 322] [--> http://10.129.234.209/racers/user/]
+/.github              (Status: 403) [Size: 279]
+/.htpasswd            (Status: 403) [Size: 279]
+/.htpasswds           (Status: 403) [Size: 279]
+</Terminal>
 ## Accès initial
 
 Détails de l'exploitation.
