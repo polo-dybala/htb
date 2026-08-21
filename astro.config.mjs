@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   // Update these two values to match your GitHub repo before deploying.
@@ -6,7 +7,8 @@ export default defineConfig({
   // - Otherwise, base must match your repo name exactly, with a leading slash.
   site: 'https://polo-dybala.github.io',
   base: '/htb',
-
+  integrations: [mdx()],
+  
   markdown: {
     shikiConfig: {
       theme: 'github-dark',
