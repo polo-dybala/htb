@@ -6,7 +6,7 @@ difficulty: easy
 points: 20
 ip: 10.10.11.xxx
 releaseDate: 2025-11-05
-retired: true
+retired: false
 tags: ["command-injection", "pdf", "credentials-reuse"]
 description: "Injection de commande via un outil de génération de PDF exposé publiquement, puis réutilisation de credentials pour l'escalade."
 image: "/htb/images/paperwork.png"
