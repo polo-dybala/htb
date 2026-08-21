@@ -9,10 +9,11 @@ releaseDate: 2025-09-02
 retired: true
 tags: ["bash", "Grav cms", "privesc"]
 description: "Grav CMS exploitation."
-image: "/htb/images/race.png"
+image: "/htb/images/race/race.png"
 ---
 
 import Terminal from '../../../components/Terminal.astro';
+import '../../../styles/global.css';
 
 ## Enumeration
 
@@ -32,6 +33,14 @@ PORT   STATE SERVICE VERSION
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 </Terminal>
 
+According to the nmap we can see that port 80 is open. Accessing the
+web server through the browser redirects us to /racers/.
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/racehome.png"
+    alt="GRAV CMS login page"
+  />
+</div>
 ## Accès initial
 
 Détails de l'exploitation.
