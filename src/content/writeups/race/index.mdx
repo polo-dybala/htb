@@ -64,11 +64,28 @@ Nothing of interesting was found. I proceed with a little directory enumeration.
 /CONTRIBUTING.md      (Status: 403) [Size: 279]
 /login                (Status: 200) [Size: 10406]
 /CHANGELOG.md         (Status: 403) [Size: 279]
-/user                 (Status: 301) [Size: 322] 
+/user                 (Status: 301) [Size: 322]
+/phpsysinfo           (Status: 200) [Size: 379]
 /.github              (Status: 403) [Size: 279]
 /.htpasswd            (Status: 403) [Size: 279]
 /.htpasswds           (Status: 403) [Size: 279]
 </Terminal>
+I found a user and admin page but I have no valid credential to login.
+I proceed the enumeration on /phpsysinfo endpoint found
+It uses weak credential we can access using admin:admin.
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/phpsysinfo_home.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+Further enumeration on the process status section we found a curl command executed with a valid admin credential.
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/backup.png"
+    alt="GRAV CMS login page"
+  />
+</div>
 ## Accès initial
 
 Détails de l'exploitation.
