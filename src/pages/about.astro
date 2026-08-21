@@ -1,45 +1,386 @@
+```astro
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 ---
 
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>À propos · htb-writeups</title>
+    <meta
+      name="description"
+      content="About Polo Dybala — cybersecurity student, penetration testing and Hack The Box writeups."
+    />
+    <title>About · htb-writeups</title>
   </head>
+
   <body>
     <Header />
-    <main class="page prose">
-      <h1>À propos</h1>
-      <p>
-        Ce site regroupe mes notes et writeups de machines Hack The Box, rédigés
-        à des fins d'apprentissage et de partage de méthodologie. Toutes les
-        machines documentées ici sont retirées (retired) au moment de la publication,
-        conformément aux règles de HTB.
-      </p>
-      <h2>Méthodologie</h2>
-      <p>
-        Chaque writeup suit généralement la même structure : reconnaissance,
-        accès initial, escalade de privilèges, puis un résumé de la chaîne
-        d'exploitation complète.
-      </p>
-      <h2>Contact</h2>
-      <p>
-        Pour toute question ou correction, n'hésite pas à ouvrir une issue sur
-        le dépôt GitHub de ce site.
-      </p>
+
+    <main class="page">
+      <section class="hero">
+        <div class="terminal-label">
+          <span>$</span> whoami
+        </div>
+
+        <h1>Polo Dybala</h1>
+
+        <p class="role">
+          Cybersecurity Student · Pentesting · Security Research
+        </p>
+
+        <p class="intro">
+          I'm a cybersecurity enthusiast focused on understanding how systems
+          work, finding vulnerabilities, and learning through hands-on
+          experimentation.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="terminal-label">
+          <span>$</span> cat about.txt
+        </div>
+
+        <p>
+          This website is my personal cybersecurity notebook and portfolio.
+          It contains Hack The Box writeups, technical notes, methodologies,
+          and security research that I've collected while learning.
+        </p>
+
+        <p>
+          My approach is simple:
+          <strong>learn → enumerate → understand → exploit → document.</strong>
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="terminal-label">
+          <span>$</span> ls skills/
+        </div>
+
+        <div class="skills">
+          <div class="skill-card">
+            <h3>Web Security</h3>
+            <p>SQLi · SSRF · XSS · RCE · API Security</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Infrastructure</h3>
+            <p>Linux · Windows · Active Directory · SMB · LDAP</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Cloud & Containers</h3>
+            <p>AWS · Docker · Container Security · Cloud Enumeration</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Programming</h3>
+            <p>Python · C · C++ · Java · JavaScript · SQL</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="terminal-label">
+          <span>$</span> cat methodology.txt
+        </div>
+
+        <div class="methodology">
+          <div>
+            <span class="number">01</span>
+            <div>
+              <h3>Reconnaissance</h3>
+              <p>
+                Identify services, technologies, attack surface and potential
+                entry points.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <span class="number">02</span>
+            <div>
+              <h3>Enumeration</h3>
+              <p>
+                Dig deeper into applications, users, endpoints, permissions
+                and exposed functionality.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <span class="number">03</span>
+            <div>
+              <h3>Initial Access</h3>
+              <p>
+                Understand the vulnerability and reproduce the exploitation
+                chain in a controlled environment.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <span class="number">04</span>
+            <div>
+              <h3>Privilege Escalation</h3>
+              <p>
+                Investigate local permissions, credentials, services,
+                misconfigurations and escalation paths.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <span class="number">05</span>
+            <div>
+              <h3>Documentation</h3>
+              <p>
+                Document the complete attack chain so the technique can be
+                understood and reproduced in a legal lab environment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="terminal-label">
+          <span>$</span> ls platforms/
+        </div>
+
+        <div class="platforms">
+          <span>Hack The Box</span>
+          <span>PortSwigger Academy</span>
+          <span>Cybersecurity Labs</span>
+        </div>
+      </section>
+
+      <section class="section contact">
+        <div class="terminal-label">
+          <span>$</span> cat contact.txt
+        </div>
+
+        <p>
+          Interested in cybersecurity, penetration testing or collaborating on
+          security projects?
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/polo-dybala" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+
+          <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
+            Discord
+          </a>
+        </div>
+      </section>
+
+      <section class="quote">
+        <span>></span>
+        Learn. Break. Understand. Improve.
+      </section>
     </main>
+
     <Footer />
   </body>
 </html>
 
 <style>
   .page {
-    max-width: 720px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 3.5rem 1.5rem 4rem;
+    padding: 4rem 1.5rem 5rem;
+  }
+
+  .hero {
+    padding: 2rem 0 4rem;
+  }
+
+  .terminal-label {
+    color: var(--color-text-muted);
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .terminal-label span {
+    color: var(--color-accent);
+  }
+
+  h1 {
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.05em;
+  }
+
+  .role {
+    color: var(--color-accent);
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .intro {
+    max-width: 700px;
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+  }
+
+  .section {
+    border-top: 1px solid var(--color-border);
+    padding: 3rem 0;
+  }
+
+  .section > p {
+    color: var(--color-text-secondary);
+    max-width: 760px;
+  }
+
+  .section strong {
+    color: var(--color-text);
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  }
+
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .skill-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .skill-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  }
+
+  .skill-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .methodology {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .methodology > div {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    gap: 1rem;
+  }
+
+  .number {
+    color: var(--color-accent);
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.85rem;
+    padding-top: 0.2rem;
+  }
+
+  .methodology h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+  }
+
+  .methodology p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .platforms span {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    color: var(--color-text-secondary);
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.8rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .links a {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    border-radius: 7px;
+    padding: 0.6rem 1rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.85rem;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .links a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .quote {
+    border-left: 3px solid var(--color-accent);
+    margin-top: 2rem;
+    padding: 0.75rem 1rem;
+    color: var(--color-text-muted);
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.9rem;
+  }
+
+  .quote span {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 650px) {
+    .page {
+      padding-top: 2.5rem;
+    }
+
+    .skills {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      padding-bottom: 3rem;
+    }
+
+    .role {
+      line-height: 1.7;
+    }
   }
 </style>
+```
