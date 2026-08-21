@@ -4,9 +4,14 @@ import WriteupLayout from '../../layouts/WriteupLayout.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('writeups');
+
   return entries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
+    params: {
+      slug: entry.id,
+    },
+    props: {
+      entry,
+    },
   }));
 }
 
