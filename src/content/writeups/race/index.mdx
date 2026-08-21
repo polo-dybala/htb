@@ -86,10 +86,69 @@ Further enumeration on the process status section we found a curl command execut
     alt="GRAV CMS login page"
   />
 </div>
-## Accès initial
-
-Détails de l'exploitation.
-
+backup:Wedobackupswithsecur3password5.Noonecanhackus!
+## Initial Access
+Connecting with the credential found
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/backup_login.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/backup_home.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+We do not have full privileges but we can download the backup zip file.
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/download.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+Decompressing we can find a user named Patrick and have his informations with the hash of his password.
+<Terminal prompt="$">
+cat user/accounts/patrick.yaml
+state: enabled
+email: patrick@race.vl
+fullname: 'Patrick P. Rick'
+language: en
+content_editor: default
+twofa_enabled: false
+twofa_secret: LW35AG7V4U4NLOBVU5P6NG35GP5YWJKT
+avatar: { }
+hashed_password: $2y$10$TWyPZQDqMZJJ/0pLdWUbY.TxVKVMHP3LzfUTo3BYWFRID7uXaoXcC
+reset: '553e7719d2674ae2bfb29eb0aaa806d0::1701718773'
+</Terminal>
+Interesting we have the reset token can we reset his password ?
+I will request a reset of patrick's password and download the new backup file to have
+the new reset token.
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/download.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+<Terminal prompt="$">
+$ unzip default_site_backup--20260821152406.zip user/accounts/patrick.yaml
+Archive:  default_site_backup--20260821152406.zip
+  inflating: user/accounts/patrick.yaml
+$ cat patrick.yaml
+state: enabled
+email: patrick@race.vl
+fullname: 'Patrick P. Rick'
+language: en
+content_editor: default
+twofa_enabled: false
+twofa_secret: LW35AG7V4U4NLOBVU5P6NG35GP5YWJKT
+avatar: {  }
+hashed_password: $2y$10$TWyPZQDqMZJJ/0pLdWUbY.TxVKVMHP3LzfUTo3BYWFRID7uXaoXcC
+reset: '24e8e5c5096d2bab778d48168c0c3504::1787329370'
+</Terminal>
+We are able to install theme but unfortunately we don't have access to internet
+We go to configuration->advanced
 ## Escalade de privilèges
 
 Détails de l'escalade.
