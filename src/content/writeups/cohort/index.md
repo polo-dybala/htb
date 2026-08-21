@@ -9,7 +9,7 @@ releaseDate: 2026-01-22
 retired: true
 tags: ["ci-cd", "gitea", "ssrf", "privesc"]
 description: "Exploitation d'une SSRF pour atteindre un pipeline CI/CD interne, puis abus des credentials du runner pour escalader les privilèges."
-image: "/images/cohort-cover.png"
+image: "/htb/images/cohort.png"
 ---
 
 ## Reconnaissance

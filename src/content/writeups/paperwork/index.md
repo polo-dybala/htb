@@ -9,7 +9,7 @@ releaseDate: 2025-11-05
 retired: true
 tags: ["command-injection", "pdf", "credentials-reuse"]
 description: "Injection de commande via un outil de génération de PDF exposé publiquement, puis réutilisation de credentials pour l'escalade."
-image: "/images/paperwork-cover.png"
+image: "/htb/images/paperwork.png"
 ---
 
 ## Reconnaissance

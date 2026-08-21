@@ -9,7 +9,7 @@ releaseDate: 2026-03-14
 retired: true
 tags: ["s3", "misconfiguration", "docker", "privesc"]
 description: "Exploitation d'un bucket S3 mal configuré pour obtenir un accès initial, puis escalade via un conteneur Docker mal isolé."
-image: "/images/nimbus-cover.png"
+image: "/htb/images/nimbus.png"
 ---
 
 ## Reconnaissance

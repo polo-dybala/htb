@@ -4,8 +4,8 @@ machine: Race
 os: linux
 difficulty: hard
 points: 40
-ip: 10.10.11.xxx
-releaseDate: 2026-01-22
+ip: 10.129.234.209
+releaseDate: 2025-09-02
 retired: true
 tags: ["bash", "Grav cms", "privesc"]
 description: "Exploitation ."
@@ -15,6 +15,18 @@ image: "/htb/images/race.png"
 ## Reconnaissance
 
 Contenu de l'énumération initiale (nmap, ports ouverts...).
+<terminal>
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 62b01ec5e8815c9439ed377e21cfb1a8 (ECDSA)
+|_  256 37a3d3cd35dcccd8db3cc34dad2229a9 (ED25519)
+80/tcp open  http    Apache httpd 2.4.52 ((Ubuntu))
+|_http-server-header: Apache/2.4.52 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</termianl>
+
 
 ## Accès initial
 
