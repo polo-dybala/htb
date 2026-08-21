@@ -1,8 +1,8 @@
 ---
 title: "Cohort — GRAV CMS Exploitation"
 machine: Cohort
-os: Linux
-difficulty: Hard
+os: linux
+difficulty: hard
 points: 40
 ip: 10.10.11.xxx
 releaseDate: 2026-01-22
