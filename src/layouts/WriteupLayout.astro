@@ -1,22 +1,23 @@
 ---
-import Badge from '../components/Badge.astro';
-import TableOfContents from '../components/TableOfContents.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import TableOfContents from '../components/TableOfContents.astro';
 
 interface Props {
   title: string;
   machine: string;
-  os: 'linux' | 'windows' | 'other';
-  difficulty: 'easy' | 'medium' | 'hard' | 'insane';
+  os: string;
+  difficulty: string;
   points?: number;
-  ip?: string;
   releaseDate: Date;
   tags: string[];
   description: string;
   image?: string;
-  headings: { depth: number; slug: string; text: string }[];
+  headings?: {
+    depth: number;
+    slug: string;
+    text: string;
+  }[];
 }
 
 const {
@@ -25,19 +26,13 @@ const {
   os,
   difficulty,
   points,
-  ip,
   releaseDate,
   tags,
   description,
   image,
-  headings,
+  headings = [],
 } = Astro.props;
-
-const formattedDate = new Date(releaseDate).toLocaleDateString('fr-FR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+---
 ---
 
 <html lang="fr">
