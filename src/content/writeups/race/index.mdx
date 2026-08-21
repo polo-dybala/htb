@@ -19,7 +19,8 @@ import '../../../styles/global.css';
 
 We start with a normal nmap
 
-<Terminal title="nmap" prompt="$ nmap -sC -sV -T4 10.129.234.209">
+<Terminal title="nmap" prompt="$">
+ nmap -sC -sV -T4 10.129.234.209
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
@@ -40,7 +41,8 @@ web server through the browser redirects us to /racers/.
   />
 </div>
 Nothing of interesting was found. I proceed with a little directory enumeration.
-<Terminal prompt="$ gobuster dir -u http://10.129.234.209/racers -w Wordlist/diretory.txt">
+<Terminal prompt="$">
+ gobuster dir -u http://10.129.234.209/racers -w Wordlist/diretory.txt
 ===============================================================
 Gobuster v3.5
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
