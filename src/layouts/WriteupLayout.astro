@@ -1,7 +1,14 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Badge from '../components/Badge.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   title: string;
@@ -9,15 +16,12 @@ interface Props {
   os: string;
   difficulty: string;
   points?: number;
+  ip?: string;
   releaseDate: Date;
   tags: string[];
   description: string;
   image?: string;
-  headings?: {
-    depth: number;
-    slug: string;
-    text: string;
-  }[];
+  headings?: Heading[];
 }
 
 const {
@@ -26,53 +30,86 @@ const {
   os,
   difficulty,
   points,
+  ip,
   releaseDate,
   tags,
   description,
   image,
   headings = [],
 } = Astro.props;
----
+
+const formattedDate = new Date(releaseDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
 ---
 
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title} · htb-writeups</title>
   </head>
+
   <body>
     <Header />
+
     <div class="page">
-      <header class="hero" style={image ? `background-image: linear-gradient(180deg, rgba(10,10,15,0.4), var(--color-bg, #0a0a0f)), url(${image})` : undefined}>
+      <header
+        class="hero"
+        style={
+          image
+            ? `background-image: linear-gradient(180deg, rgba(10,10,15,0.4), var(--color-bg, #0a0a0f)), url(${image})`
+            : undefined
+        }
+      >
         <div class="hero__inner">
+
           <div class="hero__badges">
             <Badge label={os} variant={os} />
             <Badge label={difficulty} variant={difficulty} />
-            {points && <Badge label={`${points} pts`} />}
+
+            {points !== undefined && (
+              <Badge label={`${points} pts`} />
+            )}
           </div>
+
           <h1 class="hero__title">{title}</h1>
+
           <p class="hero__machine">{machine}</p>
+
           <div class="hero__meta">
             <span>{formattedDate}</span>
-            {ip && <span class="hero__ip">{ip}</span>}
+
+            {ip && (
+              <span class="hero__ip">{ip}</span>
+            )}
           </div>
+
           <div class="hero__tags">
-            {tags.map((tag) => <span class="hero__tag">{tag}</span>)}
+            {tags.map((tag: string) => (
+  <span class="hero__tag">{tag}</span>
+))}
           </div>
+
         </div>
       </header>
 
       <div class="layout">
+
         <aside class="layout__sidebar">
           <TableOfContents headings={headings} />
         </aside>
+
         <main class="layout__content prose">
           <slot />
         </main>
+
       </div>
     </div>
+
     <Footer />
   </body>
 </html>

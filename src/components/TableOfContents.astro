@@ -1,16 +1,8 @@
 ---
-interface Props {
-  headings?: {
-    depth: number;
-    slug: string;
-    text: string;
-  }[];
-}
-
 const { headings = [] } = Astro.props;
 
 const items = headings.filter(
-  (heading) => heading.depth === 2 || heading.depth === 3
+  (heading: any) => heading.depth === 2 || heading.depth === 3
 );
 ---
 
@@ -19,7 +11,7 @@ const items = headings.filter(
     <p class="toc__title">Contents</p>
 
     <ul class="toc__list">
-      {items.map((heading) => (
+      {items.map((heading: any) => (
         <li
           class:list={[
             'toc__item',
