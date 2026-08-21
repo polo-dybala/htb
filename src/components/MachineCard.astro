@@ -40,7 +40,7 @@ const formattedDate = new Date(releaseDate).toLocaleDateString('en-US', {
 });
 ---
 
-<a class="card" href={`/htb/writeups/${entry.id.split('/')[0]}/`}>
+<a class="card" href={`/htb/writeups/${entry.id.replace(/\/index$/, '')}/`}>
   {image && (
     <div class="card__image">
       <img src={image} alt={`${machine} box art`} loading="lazy" />
