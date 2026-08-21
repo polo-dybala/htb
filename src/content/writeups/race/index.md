@@ -1,6 +1,6 @@
 ---
-title: "Cohort — GRAV CMS Exploitation"
-machine: Cohort
+title: "Race — GRAV CMS Exploitation"
+machine: Race
 os: linux
 difficulty: hard
 points: 40
@@ -9,7 +9,7 @@ releaseDate: 2026-01-22
 retired: true
 tags: ["bash", "Grav cms", "privesc"]
 description: "Exploitation ."
-image: "/images/race.png"
+image: "/htb/images/race.png"
 ---
 
 ## Reconnaissance
