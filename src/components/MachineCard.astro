@@ -1,9 +1,23 @@
 ---
 import Badge from './Badge.astro';
-import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  entry: CollectionEntry<'writeups'>;
+  entry: {
+    id: string;
+    data: {
+      title: string;
+      machine: string;
+      os: 'linux' | 'windows' | 'other';
+      difficulty: 'easy' | 'medium' | 'hard' | 'insane';
+      points?: number;
+      ip?: string;
+      releaseDate: Date;
+      retired: boolean;
+      tags: string[];
+      description: string;
+      image?: string;
+    };
+  };
 }
 
 const { entry } = Astro.props;
@@ -26,52 +40,28 @@ const formattedDate = new Date(releaseDate).toLocaleDateString('en-US', {
 });
 ---
 
-<a class="card" href={`/htb/${entry.id}`}>
+<a class="card" href={`/htb/writeups/${entry.slug}`}>
   {image && (
     <div class="card__image">
-      <img
-        src={image}
-        alt={`${machine} box art`}
-        loading="lazy"
-      />
+      <img src={image} alt={`${machine} box art`} loading="lazy" />
     </div>
   )}
-
   <div class="card__body">
-
     <div class="card__badges">
       <Badge label={os} variant={os} />
       <Badge label={difficulty} variant={difficulty} />
     </div>
-
-    <h3 class="card__title">
-      {title}
-    </h3>
-
-    <p class="card__machine">
-      {machine}
-    </p>
-
-    <p class="card__description">
-      {description}
-    </p>
-
+    <h3 class="card__title">{title}</h3>
+    <p class="card__machine">{machine}</p>
+    <p class="card__description">{description}</p>
     <div class="card__footer">
-
       <div class="card__tags">
-        {tags.slice(0, 3).map((tag) => (
-          <span class="card__tag">
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      <time class="card__date">
-        {formattedDate}
-      </time>
-
+  {tags.slice(0, 3).map((tag: string) => (
+    <span class="card__tag">{tag}</span>
+  ))}
+</div>
+      <time class="card__date">{formattedDate}</time>
     </div>
-
   </div>
 </a>
 
@@ -85,9 +75,7 @@ const formattedDate = new Date(releaseDate).toLocaleDateString('en-US', {
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition:
-      transform 0.15s ease,
-      border-color 0.15s ease;
+    transition: transform 0.15s ease, border-color 0.15s ease;
   }
 
   .card:hover {
