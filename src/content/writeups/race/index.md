@@ -15,7 +15,7 @@ image: "/htb/images/race.png"
 ## Reconnaissance
 
 Contenu de l'énumération initiale (nmap, ports ouverts...).
-<terminal>
+<Terminal>
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
@@ -25,7 +25,7 @@ PORT   STATE SERVICE VERSION
 |_http-server-header: Apache/2.4.52 (Ubuntu)
 |_http-title: Site doesn't have a title (text/html).
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-</termianl>
+</Termianl>
 
 
 ## Accès initial
