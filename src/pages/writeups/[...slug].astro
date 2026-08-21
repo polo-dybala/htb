@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import WriteupLayout from '../../layouts/WriteupLayout.astro';
 
 export async function getStaticPaths() {
@@ -16,7 +16,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+
+const { Content, headings } = await render(entry);
 ---
 
 <WriteupLayout {...entry.data} headings={headings}>
