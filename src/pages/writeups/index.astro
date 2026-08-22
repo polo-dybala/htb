@@ -21,7 +21,7 @@ const entries = (await getCollection('writeups')).sort(
     <main class="page">
       <div class="header">
         <h1>Writeups</h1>
-        <p>{entries.length} machine{entries.length > 1 ? 's' : ''} documentée{entries.length > 1 ? 's' : ''}</p>
+        <p>{entries.length} machine{entries.length > 1 ? 's' : ''} found{entries.length > 1 ? 's' : ''}</p>
       </div>
       <div class="grid">
         {entries.map((entry) => <MachineCard entry={entry} />)}
