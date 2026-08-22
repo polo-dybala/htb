@@ -4,7 +4,16 @@ const links = [
   { href: '/htb/writeups', label: 'Writeups' },
   { href: '/htb/about', label: 'About' },
 ];
+
 const current = Astro.url.pathname;
+
+const isActive = (href: string) => {
+  if (href === '/htb') {
+    return current === '/htb' || current === '/htb/';
+  }
+
+  return current === href || current.startsWith(`${href}/`);
+};
 ---
 
 <header class="site-header">
@@ -12,11 +21,15 @@ const current = Astro.url.pathname;
     <a href="/htb" class="site-header__brand">
       <span class="site-header__prompt">$</span> htb-writeups
     </a>
+
     <nav class="site-header__nav">
       {links.map((link) => (
         <a
           href={link.href}
-          class:list={['site-header__link', { 'is-active': current === link.href || (link.href !== '/' && current.startsWith(link.href)) }]}
+          class:list={[
+            'site-header__link',
+            { 'is-active': isActive(link.href) },
+          ]}
         >
           {link.label}
         </a>
